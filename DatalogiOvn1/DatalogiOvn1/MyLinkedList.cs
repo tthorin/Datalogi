@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using DatalogiOvn1;
+using DatalogiOvn1.Interfaces;
 
-internal class MyLinkedList<T>
+internal class MyLinkedList<T> : IIndexable<T>
 {
-    public Node<T>? Head{ get; set; }
+    public Node<T>? Head { get; set; }
     public Node<T>? Tail { get; set; }
     public Node<T>? CurrentNode { get; set; }
     public int Count { get; set; }
@@ -12,33 +13,70 @@ internal class MyLinkedList<T>
     public void Push(T data)
     {
         var newNode = new Node<T>(data);
-        
+
         newNode.Next = Head;
         if (Head is not null) Head.Prev = newNode;
         Head = newNode;
-        
+
         if (Tail is null) Tail = newNode;
         else if (Tail.Prev is null) Tail.Prev = newNode;
-        
+
         Tail.Next = Head;
         Head.Prev = Tail;
-        
-        if(CurrentNode is null) CurrentNode = newNode;
+
+        if (CurrentNode is null) CurrentNode = newNode;
         Count++;
     }
-    
-    public T Get(int idx)
+
+    public Node<T> GetNodeAtIndex(int idx)
     {
-        //TODO: improve now that node has more props, note to self, check idx for closeness to current, head, tail
-        var distFromMiddle = idx > Count / 2 ? idx - (Count / 2) : Count / 2 - idx;
-
-
-        Node <T> output = Head;
-        for (int i = 0; i < idx; i++)
+        if (Count == 0) throw new Exception($"List contains no elements.");
+        if (idx < 0 || idx >= Count)
         {
-            output = output.Next;
+            throw new IndexOutOfRangeException($"Index must be a value between 0 and the number of items in the MyLinkedList. The index given was {idx} and the length of the myLinkeList was {Count}");
         }
-        return output.Data;
+
+        var distFromMiddle = idx - Count / 2;
+
+        Node<T> result = Head!;
+        if (distFromMiddle <= 0)
+        {
+            for (int i = 0; i < idx; i++)
+            {
+                result = result.Next!;
+            }
+        }
+        else
+        {
+            result = Tail!;
+            for (int i = Count - 1; i > idx; i--)
+            {
+                result = Tail.Prev!;
+            }
+         }
+        return result!;
+    }
+    public T Get(int idx) => GetNodeAtIndex(idx).Data;
+
+    public void RemoveAt(int idx)
+    {
+        var node = GetNodeAtIndex(idx);
+        if(node.Prev == node)
+        {
+            Head = null;
+            Tail = null;
+            CurrentNode = null;
+        }
+        else
+        {
+            node.Prev.Next = node.Next;
+            node.Next.Prev = node.Prev;
+            if (node == CurrentNode)
+            {
+                CurrentNode = node.Next;
+            }
+        }
+        if (Count > 0) Count--;
     }
     public T Iterate()
     {
@@ -48,14 +86,20 @@ internal class MyLinkedList<T>
     }
 
     public T Current() => CurrentNode.Data;
-    public void Next()
-    {
-        CurrentNode = CurrentNode.Next;
-    }
+    public void Next() => CurrentNode = CurrentNode.Next;
 
-    public void Reset()
+    public void Reset() => CurrentNode = Head;
+    public int Length() => Count;
+    public T GetAt(int index) => Get(index);
+    public void SetAt(int index, T value) => GetNodeAtIndex(index).Data = value;
+    public int IndexOf(T item)
     {
-        CurrentNode = Head;
+        var node = Head;
+        for (int i = 0; i < Count; i++)
+        {
+            if (node.Data.Equals(item)) return i;
+            node = node.Next;
+        }
+        return -1;
     }
-
 }

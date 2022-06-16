@@ -24,26 +24,24 @@ TestMyList();
 void TestMyList()
 {
     MyLinkedList<string> myList = new();
-    while (true)
+    var keepGoing = true;
+    while (keepGoing)
     {
-        Console.Write("add <text>, get <number>: ");
+        Console.Write("add <text>, get <index>: ");
         string input = Console.ReadLine();
         var command = input.Split(" ", 2);
         switch (command[0])
         {
             case "add": myList.Push(command[1]); break;
-            
+
             case "get":
                 var pop = myList.Get(int.Parse(command[1]));
                 Console.WriteLine(pop);
                 break;
-            //case "print":
-            //    while (myList.Count > 0)
-            //    {
-            //        Console.WriteLine(myList.Pop());
-            //    }
-            //    break;
-
+            case "remove":
+                myList.RemoveAt(int.Parse(command[1]));
+                break;
+            case "exit": keepGoing = false; break;
             default:
                 Console.WriteLine("Unknown command.");
                 break;
