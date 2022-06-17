@@ -51,7 +51,7 @@ internal class MyLinkedList<T> : IIndexable<T>
             result = Tail!;
             for (int i = Count - 1; i > idx; i--)
             {
-                result = Tail.Prev!;
+                result = Tail!.Prev!;
             }
          }
         return result!;
@@ -69,8 +69,8 @@ internal class MyLinkedList<T> : IIndexable<T>
         }
         else
         {
-            node.Prev.Next = node.Next;
-            node.Next.Prev = node.Prev;
+            node.Prev!.Next = node.Next;
+            node.Next!.Prev = node.Prev;
             if (node == CurrentNode)
             {
                 CurrentNode = node.Next;
