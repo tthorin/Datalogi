@@ -65,5 +65,9 @@
         {
             return s.Replace(" ","").Equals(Reverse(s).Replace(" ",""));
         }
+        public static MyLinkedList<T> ReverseList<T>(MyLinkedList<T> list)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

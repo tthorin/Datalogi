@@ -1,2 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using static Sökning.Ovningar;
+
+//Ovning1();
+//Ovning1b();
+//Ovning2();
+Ovning3();

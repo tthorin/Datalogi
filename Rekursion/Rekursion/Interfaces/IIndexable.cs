@@ -1,4 +1,4 @@
-﻿namespace Sökning.Interfaces
+﻿namespace Rekursion.Interfaces
 {
     public interface IIndexable<T>
     {
@@ -7,4 +7,5 @@
         public void SetAt(int index, T value);
         public void RemoveAt(int index);
     }
+
 }

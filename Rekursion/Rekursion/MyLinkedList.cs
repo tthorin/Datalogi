@@ -1,7 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Sökning;
-using Sökning.Interfaces;
+﻿using Rekursion;
+using Rekursion.Interfaces;
 
 internal class MyLinkedList<T> : IIndexable<T>
 {
@@ -12,7 +10,9 @@ internal class MyLinkedList<T> : IIndexable<T>
 
     public void Push(T data)
     {
-        var newNode = new Node<T>(data) { Next = Head };
+        var newNode = new Node<T>(data);
+
+        newNode.Next = Head;
         if (Head is not null) Head.Prev = newNode;
         Head = newNode;
 
@@ -28,7 +28,7 @@ internal class MyLinkedList<T> : IIndexable<T>
 
     public Node<T> GetNodeAtIndex(int idx)
     {
-        if (Count == 0) throw new Exception("List contains no elements.");
+        if (Count == 0) throw new Exception($"List contains no elements.");
         if (idx < 0 || idx >= Count)
         {
             throw new IndexOutOfRangeException($"Index must be a value between 0 and the number of items in the MyLinkedList. The index given was {idx} and the length of the myLinkeList was {Count}");
@@ -49,9 +49,9 @@ internal class MyLinkedList<T> : IIndexable<T>
             result = Tail!;
             for (int i = Count - 1; i > idx; i--)
             {
-                result = Tail!.Prev!;
+                result = Tail.Prev!;
             }
-        }
+         }
         return result!;
     }
     public T Get(int idx) => GetNodeAtIndex(idx).Data;
@@ -59,7 +59,7 @@ internal class MyLinkedList<T> : IIndexable<T>
     public void RemoveAt(int idx)
     {
         var node = GetNodeAtIndex(idx);
-        if (node.Prev == node)
+        if(node.Prev == node)
         {
             Head = null;
             Tail = null;
@@ -67,8 +67,8 @@ internal class MyLinkedList<T> : IIndexable<T>
         }
         else
         {
-            node.Prev!.Next = node.Next;
-            node.Next!.Prev = node.Prev;
+            node.Prev.Next = node.Next;
+            node.Next.Prev = node.Prev;
             if (node == CurrentNode)
             {
                 CurrentNode = node.Next;
@@ -99,32 +99,5 @@ internal class MyLinkedList<T> : IIndexable<T>
             node = node.Next;
         }
         return -1;
-    }
-    public (bool found, T? data) Find(Predicate<T?> condition)
-    {
-        if (Count == 0) throw new Exception("List contains no elements.");
-        var node = Head;
-        for (int i = 0; i < Count; i++)
-        {
-            if (condition(node!.Data))
-            {
-                Console.WriteLine($"Found! Search took {i+1} loops.");
-                return (true, node.Data);
-            }
-            node = node.Next;
-        }
-        Console.WriteLine($"Not found. Used {Count} loops.");
-        return (false, default(T));
-    }
-    public T? FindLast(Predicate<T> condition)
-    {
-        if (Count == 0) throw new Exception("List contains no elements.");
-        var node = Tail;
-        for (int i = Count - 1; i >= 0; i--)
-        {
-            if (condition(node!.Data)) return node.Data;
-            node = node.Prev;
-        }
-        return default;
     }
 }
