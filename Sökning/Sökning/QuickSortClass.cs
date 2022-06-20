@@ -40,9 +40,19 @@ internal static class QuickSortClass
         //Count++;
         if (start < end)
         {
-            var pivot = HoarePartition(arr, start, end);
-            QuickSortRecursive(arr, start, pivot);
-            QuickSortRecursive(arr, pivot + 1, end);
+            //for HoarePartition should be pivot & pivot +1, for other should be pivot -1 & pivot +1
+            if (end - start <= 10) InsertionSort(arr, start, end);
+            else
+            {
+                var pivot = HoarePartition(arr, start, end);
+                QuickSortRecursive(arr, start, pivot);
+                QuickSortRecursive(arr, pivot + 1, end);
+            }
+            //var pivot = HoarePartition(arr, start, end);
+            //QuickSortRecursive(arr, start, pivot);
+            //QuickSortRecursive(arr, pivot + 1, end);
+
+            
         }
     }
 
@@ -85,6 +95,19 @@ internal static class QuickSortClass
             if (left >= right) return right;
             Count++;
             (arr[left], arr[right]) = (arr[right], arr[left]);
+        }
+    }
+    private static void InsertionSort<T>(IList<T> arr, int start, int end) where T : IComparable
+    {
+        for (var i = start; i <= end; i++)
+        {
+            var j = i;
+            while (j > start && arr[j - 1].CompareTo(arr[j]) > 0)
+            {
+                (arr[j], arr[j - 1]) = (arr[j - 1], arr[j]);
+                j--;
+                Count++;
+            }
         }
     }
 }

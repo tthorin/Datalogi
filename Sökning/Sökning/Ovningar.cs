@@ -66,7 +66,7 @@ internal static class Ovningar
             FindWhenSorted(intArr, lookingFor);
         }
     }
-    const int SIZE = 10000;
+    const int SIZE = 7000000;
     internal static void Ovning4Sort()
     {
         var sample = new List<int>();
@@ -76,10 +76,10 @@ internal static class Ovningar
             sample.Add(rng.Next(1, 1001));
         }
         var mergeSorted = MergeSort(sample);
-        var quickSorted = QuickSortNotExtension(sample);
-        //sample.QuickSort();
         Console.WriteLine("\nMerge sort took " + MergeSortClass.Count + " steps in " + MergeSortClass.Time + " ms");
+        var quickSorted = QuickSortNotExtension(sample);
         Console.WriteLine("Quick sort took " + QuickSortClass.Count + " steps in " + QuickSortClass.Time + " ms");
+        //sample.QuickSort();
         //sample[0] = 999;
         //Console.WriteLine("Sample[0] set to 999, mergeSorted[0] is " + mergeSorted[0] + " and quickSorted[0] is " + quickSorted[0]);
         //mergeSorted[0] = 999;
