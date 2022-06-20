@@ -1,7 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Sökning.Interfaces;
 
-using Sökning;
-using Sökning.Interfaces;
+namespace Sökning;
 
 internal class MyLinkedList<T> : IIndexable<T>
 {
@@ -34,7 +33,7 @@ internal class MyLinkedList<T> : IIndexable<T>
             throw new IndexOutOfRangeException($"Index must be a value between 0 and the number of items in the MyLinkedList. The index given was {idx} and the length of the myLinkeList was {Count}");
         }
 
-        var distFromMiddle = idx - Count / 2;
+        var distFromMiddle = idx - (Count / 2);
 
         Node<T> result = Head!;
         if (distFromMiddle <= 0)
@@ -56,9 +55,9 @@ internal class MyLinkedList<T> : IIndexable<T>
     }
     public T Get(int idx) => GetNodeAtIndex(idx).Data;
 
-    public void RemoveAt(int idx)
+    public void RemoveAt(int index)
     {
-        var node = GetNodeAtIndex(idx);
+        var node = GetNodeAtIndex(index);
         if (node.Prev == node)
         {
             Head = null;
@@ -108,7 +107,7 @@ internal class MyLinkedList<T> : IIndexable<T>
         {
             if (condition(node!.Data))
             {
-                Console.WriteLine($"Found! Search took {i+1} loops.");
+                Console.WriteLine($"Found! Search took {i + 1} loops.");
                 return (true, node.Data);
             }
             node = node.Next;

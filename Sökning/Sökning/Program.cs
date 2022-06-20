@@ -3,4 +3,8 @@
 //Ovning1();
 //Ovning1b();
 //Ovning2();
-Ovning3();
+//Ovning3();
+for (int i = 0; i < 10; i++)
+{
+    Ovning4Sort();
+}
