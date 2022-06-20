@@ -4,6 +4,8 @@ using System;
 using static Sökning.Seek;
 using static Sökning.MergeSortClass;
 using static Sökning.QuickSortClass;
+using System.Diagnostics;
+
 internal static class Ovningar
 
 {
@@ -88,5 +90,25 @@ internal static class Ovningar
         //{
         //    Console.WriteLine(number);
         //}
+    }
+    internal static void SortAndFindTest()
+    {
+        var sampleOne = new List<int>();
+        var rng = new Random();
+        for (int i = 0; i < SIZE; i++)
+        {
+            sampleOne.Add(rng.Next(1, 1001));
+        }
+        var numberToFind = rng.Next(1, 1001);
+        var timer = Stopwatch.StartNew();
+        var quickSorted = QuickSortNotExtension(sampleOne);
+        FindWhenSorted(quickSorted, numberToFind);
+        timer.Stop();
+        Console.WriteLine(timer.ElapsedMilliseconds);
+        timer.Restart();
+        sampleOne.Sort();
+        FindWhenSorted(sampleOne.ToArray(), numberToFind);
+        timer.Stop();
+        Console.WriteLine(timer.ElapsedMilliseconds);
     }
 }
