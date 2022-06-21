@@ -68,6 +68,21 @@ internal static class Ovningar
             FindWhenSorted(intArr, lookingFor);
         }
     }
+    internal static void Ovning3Recursive()
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            var intArr = new int[100];
+            var rng = new Random();
+            for (int i = 0; i < intArr.Length; i++)
+            {
+                intArr[i] = rng.Next(1, 101);
+            }
+            Array.Sort(intArr);
+            var lookingFor = rng.Next(1, 101);
+            FindWhileSortedRecursive(intArr, lookingFor);
+        }
+    }
     const int SIZE = 7000000;
     internal static void Ovning4Sort()
     {

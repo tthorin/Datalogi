@@ -51,31 +51,9 @@ internal static class QuickSortClass
             //var pivot = HoarePartition(arr, start, end);
             //QuickSortRecursive(arr, start, pivot);
             //QuickSortRecursive(arr, pivot + 1, end);
-
-            
         }
     }
 
-    private static int Partition<T>(IList<T> arr, int start, int end) where T : IComparable
-    {
-        var mid = (start + end) / 2;
-        if (arr[mid].CompareTo(arr[start]) < 0) (arr[mid], arr[start]) = (arr[start], arr[mid]);
-        if (arr[end].CompareTo(arr[start]) < 0) (arr[end], arr[start]) = (arr[start], arr[end]);
-        if (arr[mid].CompareTo(arr[end]) < 0) (arr[mid], arr[end]) = (arr[end], arr[mid]);
-
-        var pivot = arr[end];
-        var i = start - 1;
-        for (var j = start; j < end; j++)
-        {
-            if (arr[j].CompareTo(pivot) < 0)
-            {
-                i++;
-                (arr[j], arr[i]) = (arr[i], arr[j]);
-            }
-        }
-        (arr[i + 1], arr[end]) = (arr[end], arr[i + 1]);
-        return i + 1;
-    }
     private static int HoarePartition<T>(IList<T> arr, int start, int end) where T : IComparable
     {
         var mid = (start + end) / 2;
@@ -109,5 +87,25 @@ internal static class QuickSortClass
                 Count++;
             }
         }
+    }
+    private static int Partition<T>(IList<T> arr, int start, int end) where T : IComparable
+    {
+        var mid = (start + end) / 2;
+        if (arr[mid].CompareTo(arr[start]) < 0) (arr[mid], arr[start]) = (arr[start], arr[mid]);
+        if (arr[end].CompareTo(arr[start]) < 0) (arr[end], arr[start]) = (arr[start], arr[end]);
+        if (arr[mid].CompareTo(arr[end]) < 0) (arr[mid], arr[end]) = (arr[end], arr[mid]);
+
+        var pivot = arr[end];
+        var i = start - 1;
+        for (var j = start; j < end; j++)
+        {
+            if (arr[j].CompareTo(pivot) < 0)
+            {
+                i++;
+                (arr[j], arr[i]) = (arr[i], arr[j]);
+            }
+        }
+        (arr[i + 1], arr[end]) = (arr[end], arr[i + 1]);
+        return i + 1;
     }
 }
