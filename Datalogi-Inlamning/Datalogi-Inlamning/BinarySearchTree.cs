@@ -18,7 +18,15 @@ public class BinarySearchTree<T> : IBstG<T>, IBstVg<T> where T : IComparable<T>
 
     public bool Exists(T value)
     {
-        throw new NotImplementedException();
+        var currentNode = Root;
+        while (currentNode != null)
+        {
+            if (currentNode.Data.CompareTo(value) == 0) return true;
+            else if (currentNode.Data.CompareTo(value) > 0)
+                currentNode = currentNode.LeftChild;
+            else currentNode = currentNode.RightChild;
+        }
+        return false;
     }
 
     public void Insert(T value)
