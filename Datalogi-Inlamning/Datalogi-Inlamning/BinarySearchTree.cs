@@ -63,8 +63,16 @@ public class BinarySearchTree<T> : IBstG<T>, IBstVg<T> where T : IComparable<T>
 
     private void InsertSame(Node<T> currentNode,Node<T> nodeToInsert)
     {
-        if (currentNode.LeftChild is null) currentNode.LeftChild = nodeToInsert;
-        else if (currentNode.RightChild is null) currentNode.RightChild = nodeToInsert;
+        if (currentNode.LeftChild is null)
+        {
+            currentNode.LeftChild = nodeToInsert;
+            _count++;
+        }
+        else if (currentNode.RightChild is null)
+        {
+            currentNode.RightChild = nodeToInsert;
+            _count++;
+        }
         else
         {
             var balance = currentNode.GetBalance();
