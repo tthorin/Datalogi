@@ -9,9 +9,82 @@ public class BinarySearchTree<T> : IBstG<T>, IBstVg<T> where T : IComparable<T>
 
     public void Balance()
     {
-        throw new NotImplementedException();
+        var balance = Root?.GetBalance() ?? 0;
+        if (Math.Abs(balance) > 1) Balance(balance);
+    }
+    public void Balance(int balance)
+    {
+        if (balance > 1)
+            ShiftRight();
+        else if (balance < 1)
+            ShiftLeft();
+        if (Math.Abs(balance) > 1) Balance(balance);
     }
 
+    private void ShiftRight()
+    {
+        var currentNode = Root.RightChild;
+        //if (currentNode.RightChild.LeftChild == null)
+        //{
+        //    currentNode.RightChild.LeftChild = currentNode;
+        //    Root = currentNode.RightChild;
+        //    currentNode.RightChild = null;
+        //}
+        //else
+        //{
+        //    currentNode = currentNode.RightChild;
+        //}
+        var notMovedYet = true;
+        while (notMovedYet)
+        {
+            if (currentNode.LeftChild == null)
+            {
+                var temp = Root;
+                currentNode.LeftChild = Root;
+
+                Root = temp.RightChild;
+                temp.RightChild = null;
+                notMovedYet = false;
+            }
+            else
+            {
+                currentNode = currentNode.LeftChild;
+            }
+        }
+    }
+    private void ShiftLeft()
+    {
+        var currentNode = Root.LeftChild;
+        //if (currentNode.LeftChild.RightChild == null)
+        //{
+        //    currentNode.LeftChild.RightChild = currentNode;
+        //    Root = currentNode.LeftChild;
+        //    currentNode.LeftChild = null;
+        //}
+        //else
+        //{
+        //    currentNode = currentNode.LeftChild.RightChild;
+        //}
+        var notMovedYet = true;
+        while (notMovedYet)
+        {
+            if (currentNode.RightChild == null)
+            {
+                var temp = Root;
+                currentNode.RightChild = Root;
+
+                Root = temp.LeftChild;
+                temp.LeftChild = null;
+                notMovedYet = false;
+            }
+            else
+            {
+                currentNode = currentNode.RightChild;
+            }
+        }
+    }
+
+    //TODO: remove before check-in, only for testing
     internal int GetBalance() => Root.GetBalance();
 
     public int Count() => _count;
@@ -48,7 +121,7 @@ public class BinarySearchTree<T> : IBstG<T>, IBstVg<T> where T : IComparable<T>
             }
             else if (newNode.Data.CompareTo(currentNode.Data) < 0)
             {
-                if(currentNode.LeftChild == null)
+                if (currentNode.LeftChild == null)
                 {
                     currentNode.LeftChild = newNode;
                     _count++;
@@ -69,7 +142,7 @@ public class BinarySearchTree<T> : IBstG<T>, IBstVg<T> where T : IComparable<T>
         }
     }
 
-    private void InsertSame(Node<T> currentNode,Node<T> nodeToInsert)
+    private void InsertSame(Node<T> currentNode, Node<T> nodeToInsert)
     {
         if (currentNode.LeftChild is null)
         {
