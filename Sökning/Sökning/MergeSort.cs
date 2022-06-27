@@ -19,7 +19,7 @@ internal static class MergeSortClass
         timer.Stop();
         Time = timer.ElapsedTicks/10000M;
         return result;
-    }
+    } //O(1)
 
     private static T[] MergeSortRecursive<T>(IList<T> arr, int start, int end) where T : IComparable
     {
@@ -67,5 +67,18 @@ internal static class MergeSortClass
             Count++;
         }
         return result;
+    }
+    private static void MergeInPlace<T>(IList<T> arr, int start, int mid,int end) where T : IComparable
+    {
+        int left = start, sortIndex = left, right = mid+1;
+        while (left<right)
+        {
+            if (arr[left].CompareTo(arr[right]) < 0)
+            {
+                left++;
+                sortIndex++;
+            }
+        }
+
     }
 }

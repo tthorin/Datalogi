@@ -90,6 +90,9 @@ internal static class QuickSortClass
     }
     private static int Partition<T>(IList<T> arr, int start, int end) where T : IComparable
     {
+        // 1 2 3 4 5
+        // 1 2 3 4 5
+        // 1 2 5 4 3
         var mid = (start + end) / 2;
         if (arr[mid].CompareTo(arr[start]) < 0) (arr[mid], arr[start]) = (arr[start], arr[mid]);
         if (arr[end].CompareTo(arr[start]) < 0) (arr[end], arr[start]) = (arr[start], arr[end]);

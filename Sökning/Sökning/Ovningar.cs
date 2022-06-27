@@ -5,6 +5,7 @@ using static Sökning.Seek;
 using static Sökning.MergeSortClass;
 using static Sökning.QuickSortClass;
 using System.Diagnostics;
+using static BubbleSortClass;
 
 internal static class Ovningar
 
@@ -125,5 +126,19 @@ internal static class Ovningar
         FindWhenSorted(sampleOne.ToArray(), numberToFind);
         timer.Stop();
         Console.WriteLine(timer.ElapsedMilliseconds);
+    }
+    internal static void BubbleSortTest()
+    {
+        var sample = new List<int>();
+        var rng = new Random();
+        for (int i = 0; i < 10; i++)
+        {
+            sample.Add(rng.Next(1, 101));
+        }
+        var sorted = BubbleSort(sample);
+        foreach (var number in sorted)
+        {
+            Console.WriteLine(number);
+        }
     }
 }
