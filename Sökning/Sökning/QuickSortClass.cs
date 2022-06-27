@@ -38,8 +38,8 @@ internal static class QuickSortClass
     private static void QuickSortRecursive<T>(IList<T> arr, int start, int end) where T : IComparable
     {
         //Count++;
-        if (start < end)
-        {
+        //if (start < end)
+        //{
             //for HoarePartition should be pivot & pivot +1, for other should be pivot -1 & pivot +1
             if (end - start <= 10) InsertionSort(arr, start, end);
             else
@@ -51,7 +51,7 @@ internal static class QuickSortClass
             //var pivot = HoarePartition(arr, start, end);
             //QuickSortRecursive(arr, start, pivot);
             //QuickSortRecursive(arr, pivot + 1, end);
-        }
+        //}
     }
 
     private static int HoarePartition<T>(IList<T> arr, int start, int end) where T : IComparable
