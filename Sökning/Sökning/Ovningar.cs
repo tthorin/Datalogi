@@ -83,7 +83,7 @@ internal static class Ovningar
             FindWhileSortedRecursive(intArr, lookingFor);
         }
     }
-    const int SIZE = 10000000;
+    const int SIZE = 7000000;
     internal static void Ovning4Sort()
     {
         var sample = new List<int>();
@@ -101,10 +101,10 @@ internal static class Ovningar
         //Console.WriteLine("Sample[0] set to 999, mergeSorted[0] is " + mergeSorted[0] + " and quickSorted[0] is " + quickSorted[0]);
         //mergeSorted[0] = 999;
         //Console.WriteLine("Sample[0] and mergeSorted[0] set to 999, mergeSorted[0] is " + mergeSorted[0] + " and quickSorted[0] is " + quickSorted[0]);
-        foreach (var number in quickSorted)
-        {
-            Console.WriteLine(number);
-        }
+        //foreach (var number in quickSorted)
+        //{
+        //    Console.WriteLine(number);
+        //}
     }
     internal static void SortAndFindTest()
     {
